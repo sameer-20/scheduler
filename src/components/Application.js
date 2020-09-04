@@ -4,7 +4,7 @@ import axios from "axios";
 
 import DayList from "components/DayList"
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay, getInterview } from 'helpers/selectors';
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from 'helpers/selectors';
 import "components/Application.scss";
 
 import useVisualMode from "hooks/useVisualMode";
@@ -36,6 +36,7 @@ export default function Application(props) {
   // console.log("Interviewers @@", state.interviewers);
 
   const appointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day)
   
   return (
     <main className="layout">
@@ -69,7 +70,8 @@ export default function Application(props) {
             key={appointment.id}
             id={appointment.id}
             time={appointment.time}
-            interview={interview} 
+            interview={interview}
+            interviewers={interviewers} 
             />
           );
          })
