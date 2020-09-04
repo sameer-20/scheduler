@@ -7,6 +7,8 @@ import Appointment from "components/appointment";
 import { getAppointmentsForDay, getInterview } from 'helpers/selectors';
 import "components/Application.scss";
 
+import useVisualMode from "hooks/useVisualMode";
+
 export default function Application(props) {
 
   const [state, setState] = useState({
