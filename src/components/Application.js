@@ -31,6 +31,9 @@ export default function Application(props) {
 			});
   }, []);
 
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  }
 
   // console.log("Appointments @@", state.appointments);
   // console.log("Interviewers @@", state.interviewers);
@@ -71,7 +74,8 @@ export default function Application(props) {
             id={appointment.id}
             time={appointment.time}
             interview={interview}
-            interviewers={interviewers} 
+            interviewers={interviewers}
+            bookInterview={bookInterview} 
             />
           );
          })
