@@ -13,25 +13,30 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 
+
 export default function Appointment (props) {
 
   const { id, time, interview, interviewers } = props;
 
-  const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
-  )
+  const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY );
 
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer
     };
-    props.bookInterview(id, interview);
+
+
+   
+    props.bookInterview(id, interview)
+    .then(() => transition(SHOW));
+    
   }
     
   console.log("Displaying props", props)
   
-  return <article className="appointment">
+  return (
+  <article className="appointment">
     <Header time={time}/>
     {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
     {mode === SHOW && (
@@ -41,7 +46,8 @@ export default function Appointment (props) {
       />
     )}
 
-    {mode === CREATE && <Form interviewers={[]} onCancel={back} onSave={save} />}
+    {mode === CREATE && (<Form interviewers={interviewers} onCancel={back} onSave={save} />)}
     
   </article>
+  );
 }
