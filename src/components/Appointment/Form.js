@@ -5,6 +5,8 @@ import InterviewerList from 'components/InterviewerList'
 export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null)
   const[name, setName] = useState(props.name || "");
+  const [error, setError] = useState("");
+
   console.log(name)
 
   const reset= function() {
@@ -16,9 +18,24 @@ export default function Form(props) {
     props.onCancel();
   }
 
-  const save = function () {
-    props.onSave(name, interviewer)
+  // const save = function () {
+  //   props.onSave(name, interviewer)
+  // }
+
+  function validate() {
+    if (name === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+
+    // if (interviewer === "") {
+    //   setError("Interviewer should be selected");
+    //   return;
+    // }
+  
+    props.onSave(name, interviewer);
   }
+  
   
 
 return (
@@ -26,14 +43,14 @@ return (
     <section className="appointment__card-left">
       <form autoComplete="off" onSubmit={event => event.preventDefault()}>
         <input onChange={(event) => setName(event.target.value) }
-        className="appointment__create-input text--semi-bold"
-        name="name"
-        type="text"
-        value={name}
-        placeholder="Enter Student Name"
-
-       /* onSubmit={} */
+          className="appointment__create-input text--semi-bold"
+          name="name"
+          type="text"
+          value={name}
+          placeholder="Enter Student Name"
+          data-testid="student-name-input"
         />
+        <section className="appointment__validation">{error}</section>
       </form>
       <InterviewerList
       interviewers={props.interviewers}
@@ -43,8 +60,8 @@ return (
     </section>
     <section className="appointment__card-right">
       <section className="appointment__actions">
-        <Button onClick={cancel} danger>Cancel</Button>
-        <Button onClick={save} confirm>Save</Button>
+        <Button danger onClick={cancel} >Cancel</Button>
+        <Button confirm onClick={validate} >Save</Button>
       </section>
     </section>
   </main>
