@@ -71,9 +71,9 @@ export default function Appointment (props) {
     {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
     {mode === DELETING && <Status message={"Deleting.."} />}
     {mode === SAVING && <Status message={"Saving.."} />}
-    {mode === CONFIRM && <Confirm message={"Are you sure you want to delete?"} onCancel={onCancel} onConfirm={onConfirm} />}
-    {mode === ERROR_SAVE && <Error message={"Error: Appointment is not saved"} onClose={onCancel} />}
-    {mode === ERROR_DELETE && <Error message={"Error: Appointment is not cancelled"} onClose={onCancel} />}
+    {mode === CONFIRM && <Confirm message={"Are you sure you would like to delete?"} onCancel={onCancel} onConfirm={onConfirm} />}
+    {mode === ERROR_SAVE && <Error message={"Could not book appointment"} onClose={onCancel} />}
+    {mode === ERROR_DELETE && <Error message={"Could not cancel appointment"} onClose={onCancel} />}
     {mode === SHOW && (
       <Show
         student={interview.student}
