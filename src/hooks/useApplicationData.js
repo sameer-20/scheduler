@@ -28,22 +28,23 @@ export default function useApplicationData() {
   // To update the number of spots remaining
 
   useEffect(() => {
-    setState(prev => ({...prev, days: prev.days.map(day => ({ ...day, spots: calculateSpots(prev, day.name)}))}));
+    setState(prev => ({...prev, days: prev.days.map(day => ({ ...day, spots: calculateRemainingSpots(prev, day.name)}))}));
   },[state.appointments])
 
 
-  const calculateSpots = function (state, dayName) {
-    const day = state.days.find(day => (day.name === dayName))
-
-    const appObj = day.appointments.map(app =>(state.appointments[app]))
+  const calculateRemainingSpots = function (state, dayName) {
     
-    let counter = 0
-      for (let app of appObj){
-       if (!app.interview){
-          counter++
-        }
-     }
-    return counter
+    const dayElement = state.days.find(day => (day.name === dayName));
+    const appointmentArray = dayElement.appointments.map(app =>(state.appointments[app]));
+    
+    let counter = 0;
+
+    for (let app of appointmentArray) {
+      if (!app.interview) {
+        counter++;
+      }
+    }
+    return counter;
   };
 
 
