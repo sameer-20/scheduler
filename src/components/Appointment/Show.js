@@ -1,5 +1,7 @@
 import React from "react";
 
+// View to show the appointment after interview booking 
+
 export default function Show (props) {
 
   console.log(props)

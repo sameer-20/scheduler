@@ -22,6 +22,9 @@ const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
+// Appointment component that displays different views depending on user task
+// - create, edit and delete an appointment
+
 export default function Appointment (props) {
 
   const { id, time, interview, interviewers } = props;
@@ -42,16 +45,16 @@ export default function Appointment (props) {
     
   }
 
+  function onCancel() {
+    back();
+  }
+
   function onEdit() {
     transition(EDIT);
   }
     
   function onDelete() {
     transition(CONFIRM);
-  }
-
-  function onCancel() {
-    back();
   }
 
   function onConfirm() {
@@ -63,35 +66,34 @@ export default function Appointment (props) {
       .catch(error => transition(ERROR_DELETE, true));
   }
     
-  console.log("Displaying props", props)
-  
   return (
-  <article className="appointment" data-testid="appointment">
-    <Header time={time}/>
-    {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-    {mode === DELETING && <Status message={"Deleting.."} />}
-    {mode === SAVING && <Status message={"Saving.."} />}
-    {mode === CONFIRM && <Confirm message={"Are you sure you would like to delete?"} onCancel={onCancel} onConfirm={onConfirm} />}
-    {mode === ERROR_SAVE && <Error message={"Could not book appointment"} onClose={onCancel} />}
-    {mode === ERROR_DELETE && <Error message={"Could not cancel appointment"} onClose={onCancel} />}
-    {mode === SHOW && (
-      <Show
-        student={interview.student}
-        interviewer={interview.interviewer}
-        onEdit={onEdit}
-        onDelete={onDelete}
-      />
-    )}
+    <article className="appointment" data-testid="appointment">
+      <Header time={time}/>
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === DELETING && <Status message={"Deleting.."} />}
+      {mode === SAVING && <Status message={"Saving.."} />}
+      {mode === CONFIRM && <Confirm message={"Are you sure you would like to delete?"} onCancel={onCancel} onConfirm={onConfirm} />}
+      {mode === ERROR_SAVE && <Error message={"Could not book appointment"} onClose={onCancel} />}
+      {mode === ERROR_DELETE && <Error message={"Could not cancel appointment"} onClose={onCancel} />}
+      
+      {mode === SHOW && (
+        <Show
+          student={interview.student}
+          interviewer={interview.interviewer}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      )}
 
-    {mode === CREATE && (
+      {mode === CREATE && (
         <Form 
           interviewers={interviewers} 
           onCancel={onCancel} 
           onSave={onSave}
         />
-    )}
+      )}
 
-    {mode === EDIT && (
+      {mode === EDIT && (
         <Form
           name={interview.student}
           interviewers={interviewers}
@@ -99,8 +101,8 @@ export default function Appointment (props) {
           onSave={onSave}
           onCancel={onCancel}
         />
-    )}
-    
-  </article>
+      )}  
+
+    </article>
   );
 }

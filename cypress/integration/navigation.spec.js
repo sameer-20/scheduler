@@ -1,4 +1,4 @@
-// End to End testing using Cypress
+// Sample End to End tests for checking navigation flow using Cypress
 
 describe("Navigation", () => {
   it("should visit root", () => {

@@ -10,6 +10,8 @@ import useApplicationData from "../hooks/useApplicationData";
 
 import useVisualMode from "../hooks/useVisualMode";
 
+// Application component to display sidebar and schedule
+
 export default function Application(props) {
 
   const { state, setDay, bookInterview, cancelInterview } = useApplicationData();

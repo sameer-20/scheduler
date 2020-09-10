@@ -1,5 +1,7 @@
 import React from 'react';
 
+// View to provide some indication to the user that an operation 
+// is in progress on saving/deleting appointment
 
 export default function Show (props) {
 

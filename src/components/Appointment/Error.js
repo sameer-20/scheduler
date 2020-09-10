@@ -1,5 +1,6 @@
 import React from 'react';
 
+// View to display error messages to the user 
 
 export default function Show (props) {
 

@@ -4,18 +4,17 @@ import PropTypes from 'prop-types';
 import InterviewerListItem from 'components/InterviewerListItem'
 import 'components/InterviewerList.scss'
 
+// Component to hold the list of interviewers
+
 export default function InterviewerList(props) {
-  console.log('props', props);
-
+  
  const { interviewers, value, onChange }= props
- console.log('interviewer', value);
-
+ 
  // To check that interviewers prop is an Array and that it is required.
  InterviewerList.propTypes = {
   interviewers: PropTypes.array.isRequired
  };
 
- 
   return (
     <section className="interviewers">
       <h4 className="interviewers__header">Interviewer</h4>

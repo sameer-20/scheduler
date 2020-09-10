@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from "components/Button";
 
+// View to show confirm screen before deleting an appointment
 
 export default function Show (props) {
 

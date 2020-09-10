@@ -1,5 +1,7 @@
 import React from 'react';
 
+// View to show an empty slot with no appointment
+
 export default function Empty (props) {
 
 console.log(props)

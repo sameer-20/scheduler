@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 
 import axios from "axios";
 
+// Custom hook that will return an object with four keys: 
+// set day, set state, cancel interview and book interview
 
 export default function useApplicationData() {
 
+  // The state object will maintain the same structure
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -12,8 +15,11 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
+  // The setDay action is used to set the current day
   const setDay = day => setState({...state, day });
 
+  // To run multiple promises concurrently and update the state when all the promises
+  // are resolved
   useEffect(() => {
     Promise.all([
       Promise.resolve(axios.get("/api/days")),
@@ -22,15 +28,16 @@ export default function useApplicationData() {
     ]).then((all) => {
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     });
-  }, []);
+  }, []); 
 
-
-  // To update the number of spots remaining
 
   useEffect(() => {
     setState(prev => ({...prev, days: prev.days.map(day => ({ ...day, spots: calculateRemainingSpots(prev, day.name)}))}));
   },[state.appointments])
 
+  
+  // To update and display the number of available spots remaining after
+  // adding or deleting an appointment
 
   const calculateRemainingSpots = function (state, dayName) {
     
@@ -47,6 +54,7 @@ export default function useApplicationData() {
     return counter;
   };
 
+  // To make an HTTP request and update the local state with a newly booked appointment
 
   function bookInterview(id, interview) {
     const appointment = {
@@ -64,8 +72,10 @@ export default function useApplicationData() {
           ...state,
           appointments
         });
-      })
+    })
   }
+
+  // To make an HTTP request and update the state after deleting an appointment
 
   function cancelInterview(id){
     const appointment = {
@@ -87,7 +97,6 @@ export default function useApplicationData() {
       }
     )
   };
-
 
   return { state, setDay, bookInterview, cancelInterview };
 }
